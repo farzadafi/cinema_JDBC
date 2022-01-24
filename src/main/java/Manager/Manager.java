@@ -1,3 +1,8 @@
+package Manager;
+
+import Entity.*;
+import Repository.*;
+
 import java.sql.*;
 import java.sql.Date;
 import java.util.*;
@@ -53,14 +58,14 @@ public class Manager {
     public void registerCinema() throws SQLException {
         while(true)
         {
-            System.out.print("Please enter your Cinema name:");
+            System.out.print("Please enter your Entity.Cinema name:");
             cinemaName = input.nextLine();
             if(cinemaRepository.hasCinema(cinemaName) == 1)
                 System.out.println("this cinema name is defined before,select another Name");
             else
                 break;
         }
-        System.out.print("Enter your Cinema number:");
+        System.out.print("Enter your Entity.Cinema number:");
         cinemaNumber = input.nextLine();
         while(true) {
             System.out.print("Enter your user name:");
@@ -136,7 +141,7 @@ public class Manager {
         System.out.print("Please enter name of cinema you want to confirm:");
         input1 = input.nextLine();
         if(cinemaRepository.confirmCinema(input1) == 0 )
-            System.out.println("Sorry,something is wrong and your Cinema enter is not confirmed");
+            System.out.println("Sorry,something is wrong and your Entity.Cinema enter is not confirmed");
         else
             System.out.println(input1 + " is successful is confirmed!");
 
@@ -145,7 +150,7 @@ public class Manager {
     //::::>
     public void addTicket(String username,String password) throws SQLException {
             cinemaName = cinemaRepository.findCinema(username,password);
-        System.out.println("please enter Information of Ticket for add!");
+        System.out.println("please enter Information of Entity.Ticket for add!");
         System.out.print("Enter film name: ");
         filmName = input.nextLine();
         System.out.print("Enter date(yyyy-dd-mm):");
@@ -154,14 +159,14 @@ public class Manager {
         System.out.print("Enter time(HH:MM:SS):");
         clock = input.nextLine();
         Time timeC = Time.valueOf(clock);
-        System.out.print("how many Ticket you has(number): ");
+        System.out.print("how many Entity.Ticket you has(number): ");
         numberTickets = input.nextInt();
         System.out.print("Enter price for " + filmName + " :");
         price = input.nextInt();
         input.nextLine();
         Ticket ticket = new Ticket(cinemaName,filmName,timeD,timeC,numberTickets,price);
         if(ticketRepository.importTicket(ticket) != 0 )
-            System.out.println("Enter Ticket to Table successful!");
+            System.out.println("Enter Entity.Ticket to Table successful!");
         else
             System.out.println("Unfortunately something is wrong,Please try again!");
     }
@@ -173,7 +178,7 @@ public class Manager {
         Time nowTime = Time.valueOf(java.time.LocalTime.now());
         System.out.println("**Now Date is: " + nowDate + " and Now Time is: " + nowTime + " **");
         ticketRepository.showCinemaTickets(cinemaName);
-        System.out.print("Enter Id Ticket for cancel:");
+        System.out.print("Enter Id Entity.Ticket for cancel:");
         Integer idDel = input.nextInt();
         input.nextLine();
         Date dateTicket = (Date) ticketRepository.returnDateTime(idDel);
@@ -184,7 +189,7 @@ public class Manager {
         if(dateTicket.after(nowDate)){
             basketRepository.cancelTicket(idDel);
             ticketRepository.delTicket(idDel);
-            System.out.println("Ticket you enter successful cancel!");
+            System.out.println("Entity.Ticket you enter successful cancel!");
         }
         else if(dateTicket.equals(nowDate)){
             Time timeTicket = ticketRepository.returnClock(idDel);
@@ -195,7 +200,7 @@ public class Manager {
             if(timeTicket.after(nowTime)){
                 basketRepository.cancelTicket(idDel);
                 ticketRepository.delTicket(idDel);
-                System.out.println("Ticket you enter successful cancel!");
+                System.out.println("Entity.Ticket you enter successful cancel!");
             }
             else
                 System.out.println("this time ticket you enter is Expired!");
@@ -228,7 +233,7 @@ public class Manager {
         int id = input.nextInt();
         String[] ticketInformation = ticketRepository.getTicketInformation(id);
         if (ticketInformation == null){
-            System.out.println("You enter a wrong id Ticket!");
+            System.out.println("You enter a wrong id Entity.Ticket!");
             return;
         }
         filmName = ticketInformation[0];
@@ -247,7 +252,7 @@ public class Manager {
         ticketRepository.updateNumberTicketBuy(id,allBuy);
         Basket basket = new Basket(username,id,filmName,numberTickets,priceAll);
         if(basketRepository.importTicket(basket) != 0)
-            System.out.println("Ticket you Enter successful add to you Basket!");
+            System.out.println("Entity.Ticket you Enter successful add to you Entity.Basket!");
         else
             System.out.println("Something Wrong!");
     }

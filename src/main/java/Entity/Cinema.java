@@ -1,3 +1,5 @@
+package Entity;
+
 public class Cinema {
     private String cinemaName;
     private String cinemaNumber;

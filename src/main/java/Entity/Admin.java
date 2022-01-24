@@ -1,4 +1,6 @@
-public class Admin extends Person{
+package Entity;
+
+public class Admin extends Person {
 
     public Admin(String firstName,String lastName,String username,String password){
         this.firstName = firstName;

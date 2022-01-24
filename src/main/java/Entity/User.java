@@ -1,4 +1,8 @@
-public class User extends Person{
+package Entity;
+
+import Entity.Person;
+
+public class User extends Person {
 
     //::::>
     public User(String firstName,String lastName,String username,String password){

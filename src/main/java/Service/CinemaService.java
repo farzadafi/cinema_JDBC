@@ -22,4 +22,12 @@ public class CinemaService {
     public String findCinema(String username,String password) throws SQLException {
         return cinemaRepository.findCinema(username,password);
     }
+
+    public void showUnconfirmCinema() throws SQLException {
+         cinemaRepository.showUnconfirmCinema();
+    }
+
+    public int confirmCinema(String input) throws SQLException {
+        return cinemaRepository.confirmCinema(input);
+    }
 }

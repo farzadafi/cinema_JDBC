@@ -14,4 +14,8 @@ public class UserService {
     public int importUser(User user) throws SQLException {
         return userRepository.importUser(user);
     }
+
+    public String findUser(String username,String password) throws SQLException {
+        return userRepository.findUser(username,password);
+    }
 }

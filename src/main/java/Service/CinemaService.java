@@ -18,4 +18,8 @@ public class CinemaService {
     public int importCinema(Cinema cinema) throws SQLException {
         return cinemaRepository.importCinema(cinema);
     }
+
+    public String findCinema(String username,String password) throws SQLException {
+        return cinemaRepository.findCinema(username,password);
+    }
 }

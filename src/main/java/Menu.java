@@ -9,7 +9,7 @@ public class Menu {
     String input1,input2;
     Scanner input = new Scanner(System.in);
 
-    public Menu() throws SQLException {
+    public Menu() throws SQLException, ClassNotFoundException {
     }
 
     //:::::>

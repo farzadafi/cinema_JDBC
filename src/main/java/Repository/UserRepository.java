@@ -8,12 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserRepository {
-    private Connection connection;
+    private Connection connection = Singleton.getInstance().getConnection();
 
 
     //::::>
-   public UserRepository(Connection connectionn) throws SQLException {
-       connection = connectionn;
+   public UserRepository() throws SQLException, ClassNotFoundException {
        String create = "CREATE TABLE IF NOT EXISTS UserTable (firstName varchar(50),lastName varchar(50),username varchar(50)PRIMARY KEY,password varchar(50) ) ";
        PreparedStatement far = connection.prepareStatement(create);
        far.execute();

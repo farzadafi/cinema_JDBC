@@ -11,7 +11,11 @@ class Singleton
 
     private Singleton() throws ClassNotFoundException, SQLException {
         Class.forName("org.postgresql.Driver");
-        connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "afshar");
+        try {
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "afshar");
+        }catch (SQLException sql){
+            System.out.println(sql.getMessage());
+        }
     }
 
 

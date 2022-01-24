@@ -27,4 +27,28 @@ public class TicketService {
     public void delTicket(int idDel) throws SQLException {
         ticketRepository.delTicket(idDel);
     }
+
+    public void showAllTicket() throws SQLException {
+        ticketRepository.showAllTicket();
+    }
+
+    public void searchWithName(String name,Date date) throws SQLException {
+        ticketRepository.searchWithName(name,date);
+    }
+
+    public String[] getTicketInformation(int id) throws SQLException {
+        return ticketRepository.getTicketInformation(id);
+    }
+
+    public int updateNumberOfTicket(int id,Integer number) throws SQLException {
+        return ticketRepository.updateNumberOfTicket(id,number);
+    }
+
+    public int allBuyTicket(int id) throws SQLException {
+        return ticketRepository.allBuyTicket(id);
+    }
+
+    public void updateNumberTicketBuy(int id,int number) throws SQLException {
+        ticketRepository.updateNumberTicketBuy(id,number);
+    }
 }

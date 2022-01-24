@@ -18,6 +18,8 @@ public class CinemaRepository {
             preparedStatement.execute();
         }catch (SQLException sql){
             System.out.println(sql.getMessage());
+        }catch (NullPointerException exception){
+            System.out.println(exception.getMessage());
         }
     }
 

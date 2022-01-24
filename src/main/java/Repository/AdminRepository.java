@@ -1,6 +1,5 @@
 package Repository;
 
-import Entity.Person;
 import Entity.Admin;
 
 import java.sql.Connection;
@@ -9,12 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AdminRepository {
-        private Connection connection;
+        private Connection connection = Singleton.getInstance().getConnection();
 
 
     //::::>
-    public AdminRepository(Connection connection) throws SQLException {
-        this.connection = connection;
+    public AdminRepository() throws SQLException, ClassNotFoundException {
         String createTable = "CREATE TABLE IF NOT EXISTS Admin(firstName varchar(50),lastName varchar(50),username varchar(50)not null, password varchar(50) )";
         PreparedStatement preparedStatement = connection.prepareStatement(createTable);
         preparedStatement.execute();

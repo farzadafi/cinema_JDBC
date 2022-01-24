@@ -51,4 +51,8 @@ public class TicketService {
     public void updateNumberTicketBuy(int id,int number) throws SQLException {
         ticketRepository.updateNumberTicketBuy(id,number);
     }
+
+    public void showListHighPurchase(String name) throws SQLException {
+        ticketRepository.showListHighPurchase(name);
+    }
 }

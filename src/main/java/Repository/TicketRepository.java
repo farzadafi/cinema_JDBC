@@ -6,11 +6,10 @@ import java.sql.*;
 import java.util.Date;
 
 public class TicketRepository {
-    private Connection connection;
+    private Connection connection = Singleton.getInstance().getConnection();
 
     //::::>
-    public TicketRepository(Connection connection) throws SQLException {
-        this.connection = connection;
+    public TicketRepository() throws SQLException, ClassNotFoundException {
         String createTable = "CREATE TABLE IF NOT EXISTS TicketTable(id serial PRIMARY KEY,cinemaName varchar(50),filmName varchar(50),datetime date,clock time,numberTicket int,price int,numberBuy int " +
          ",CONSTRAINT fk_cinemaName FOREIGN KEY(cinemaName) REFERENCES Cinema (cinemaName))";
         PreparedStatement preparedStatement = connection.prepareStatement(createTable);

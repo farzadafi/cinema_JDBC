@@ -20,6 +20,9 @@ public class AdminRepository {
         }catch (SQLException sql){
             System.out.println(sql.getMessage());
         }
+        catch (NullPointerException exception){
+            System.out.println(exception.getMessage());
+        }
     }
 
     //::::>

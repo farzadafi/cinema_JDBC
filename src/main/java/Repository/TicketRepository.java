@@ -12,8 +12,14 @@ public class TicketRepository {
     public TicketRepository() throws SQLException, ClassNotFoundException {
         String createTable = "CREATE TABLE IF NOT EXISTS TicketTable(id serial PRIMARY KEY,cinemaName varchar(50),filmName varchar(50),datetime date,clock time,numberTicket int,price int,numberBuy int " +
          ",CONSTRAINT fk_cinemaName FOREIGN KEY(cinemaName) REFERENCES Cinema (cinemaName))";
-        PreparedStatement preparedStatement = connection.prepareStatement(createTable);
-        preparedStatement.execute();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(createTable);
+            preparedStatement.execute();
+        }catch (SQLException exception){
+            System.out.println(exception.getMessage());
+        }catch (NullPointerException exception){
+            System.out.println(exception.getMessage());
+        }
     }
 
     //::::>

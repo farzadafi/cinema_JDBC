@@ -1,4 +1,4 @@
-import Manager.Manager;
+import Manager.*;
 
 import java.sql.SQLException;
 import java.util.*;
@@ -8,6 +8,8 @@ public class Menu {
     int command;
     String input1,input2;
     Scanner input = new Scanner(System.in);
+    private CinemaManager cinemaManager = new CinemaManager();
+    private TicketManager ticketManager = new TicketManager();
 
     public Menu() throws SQLException, ClassNotFoundException {
     }
@@ -93,7 +95,7 @@ public class Menu {
                     switch(command)
                     {
                         case 1:
-                            manager.confirmCinema();
+                            cinemaManager.confirmCinema();
                             break;
 
                         case 2:
@@ -119,7 +121,7 @@ public class Menu {
                     System.out.println("**********WELCOME Cinema Manager**********");
                     System.out.println("1-add Ticket.");
                     System.out.println("2-cancel Ticket.");
-                    System.out.println("3-*Add OFF code*");
+                    //System.out.println("3-*Add OFF code*");
                     System.out.println("4-*view high purchase film*");
                     System.out.println("5-Exit.");
                     System.out.print("Please select a number:");
@@ -127,11 +129,11 @@ public class Menu {
                     input.nextLine();
                     switch (command) {
                         case 1:
-                            manager.addTicket(input1,input2);
+                            ticketManager.addTicket(input1,input2);
                             break;
 
                         case 2:
-                            manager.delTicket(input1,input2);
+                            ticketManager.delTicket(input1,input2);
                             break;
 
                         case 3:
@@ -169,11 +171,11 @@ public class Menu {
                     switch(command)
                     {
                         case 1:
-                            manager.reserveTicket(input1);
+                            ticketManager.reserveTicket(input1);
                             break;
 
                         case 2:
-                            manager.showAllTicket();
+                            ticketManager.showAllTicket();
                             break;
 
                         case 3:

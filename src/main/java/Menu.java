@@ -21,7 +21,13 @@ public class Menu {
         System.out.println("2-Sign up(Register).");
         System.out.println("3-Exit.");
         System.out.print("Please select a number:");
-        command = input.nextInt();
+        try {
+            command = input.nextInt();
+        }catch (InputMismatchException exception){
+            input.nextLine();
+            System.out.println("You can just Enter number!");
+            return -1;
+        }
         input.nextLine();
         switch(command)
         {
@@ -46,7 +52,13 @@ public class Menu {
         System.out.println("2-Cinema.");
         System.out.println("3-User.");
         System.out.print("Please select a number:");
-        command = input.nextInt();
+        try {
+            command = input.nextInt();
+        }catch (InputMismatchException exception){
+            input.nextLine();
+            System.out.println("You can just Enter number!");
+            return;
+        }
         input.nextLine();
         switch(command)
         {
@@ -90,7 +102,13 @@ public class Menu {
                     System.out.println("1-Confirm Cinema Account.");
                     System.out.println("2-Exit.");
                     System.out.print("Please select a number:");
-                    command = input.nextInt();
+                    try {
+                        command = input.nextInt();
+                    }catch (InputMismatchException exception){
+                        input.nextLine();
+                        System.out.println("You can just Enter number!");
+                        return;
+                    }
                     input.nextLine();
                     switch(command)
                     {
@@ -125,7 +143,13 @@ public class Menu {
                     System.out.println("4-*view high purchase film*");
                     System.out.println("5-Exit.");
                     System.out.print("Please select a number:");
-                    command = input.nextInt();
+                    try {
+                        command = input.nextInt();
+                    }catch (InputMismatchException exception){
+                        input.nextLine();
+                        System.out.println("You can just Enter number!");
+                        return;
+                    }
                     input.nextLine();
                     switch (command) {
                         case 1:
@@ -166,7 +190,13 @@ public class Menu {
                     System.out.println("4-*view my Basket*");
                     System.out.println("5-Exit.");
                     System.out.print("Please select a number:");
-                    command = input.nextInt();
+                    try {
+                        command = input.nextInt();
+                    }catch (InputMismatchException exception){
+                        input.nextLine();
+                        System.out.println("You can just Enter number!");
+                        return;
+                    }
                     input.nextLine();
                     switch(command)
                     {

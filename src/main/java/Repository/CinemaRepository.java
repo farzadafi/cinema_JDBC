@@ -48,7 +48,7 @@ public class CinemaRepository {
         PreparedStatement preparedStatement = connection.prepareStatement(findQuery);
         ResultSet resultSet = preparedStatement.executeQuery();
         while(resultSet.next()){
-            System.out.println("Entity.Cinema Name[" + resultSet.getString("cinemaName") + "] and Entity.Cinema Number[" + resultSet.getString("cinemaNumber") + "]");
+            System.out.println("Cinema Name[" + resultSet.getString("cinemaName") + "] and Cinema Number[" + resultSet.getString("cinemaNumber") + "]");
         }
     }
 

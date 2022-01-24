@@ -32,7 +32,12 @@ public class UserRepository {
         preparedStatement.setString(2,user.lastName);
         preparedStatement.setString(3,user.username);
         preparedStatement.setString(4,user.password);
-        return preparedStatement.executeUpdate();
+        try {
+            return preparedStatement.executeUpdate();
+        }catch (SQLException exception){
+            System.out.println(exception.getMessage());
+        }
+        return 0;
     }
 
     //::::>
@@ -41,7 +46,12 @@ public class UserRepository {
         PreparedStatement preparedStatement = connection.prepareStatement(findQuery);
         preparedStatement.setString(1,username);
         preparedStatement.setString(2,password);
-        ResultSet resultSet = preparedStatement.executeQuery();
+        ResultSet resultSet = null;
+        try {
+            resultSet = preparedStatement.executeQuery();
+        }catch (SQLException exception){
+            System.out.println(exception.getMessage());
+        }
         if(resultSet.next())
             return resultSet.getString("username");
         else

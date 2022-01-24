@@ -2,13 +2,19 @@ package Manager;
 
 import Entity.*;
 import Repository.*;
+import Service.*;
 
 import java.sql.*;
 import java.sql.Date;
 import java.util.*;
 
 public class Manager {
+    private BasketService basketService = new BasketService();
+    private TicketService ticketService = new TicketService();
+    private UserService userService = new UserService();
+    private CinemaService cinemaService = new CinemaService();
     UserRepository userRepository = new UserRepository();
+    private AdminService adminService = new AdminService();
     AdminRepository adminRepository = new AdminRepository();
     CinemaRepository cinemaRepository = new CinemaRepository();
     TicketRepository ticketRepository = new TicketRepository();
@@ -46,7 +52,7 @@ public class Manager {
         System.out.print("Enter your password:");
         password = input.nextLine();
         Admin admin = new Admin(firstName,lastName,username,password);
-        int result =  adminRepository.importAdmin(admin);
+        int result =  adminService.importAdmin(admin);
         if(result != 0 )
             System.out.println("Sign up is successfully and now you can Sign In!");
         else
@@ -59,7 +65,7 @@ public class Manager {
         {
             System.out.print("Please enter your Entity.Cinema name:");
             cinemaName = input.nextLine();
-            if(cinemaRepository.hasCinema(cinemaName) == 1)
+            if(cinemaService.hasCinema(cinemaName) == 1)
                 System.out.println("this cinema name is defined before,select another Name");
             else
                 break;
@@ -80,7 +86,7 @@ public class Manager {
         System.out.print("Enter your password:");
         password = input.nextLine();
         Cinema cinema = new Cinema(cinemaName,cinemaNumber,username,password);
-        if(cinemaRepository.importCinema(cinema) != 0 )
+        if(cinemaService.importCinema(cinema) != 0 )
             System.out.println("Sign up is successfully and now you can Sign In!");
         else
             System.out.println("Sing up is ERROR!,please try again");
@@ -106,7 +112,7 @@ public class Manager {
         System.out.print("Enter your password:");
         password = input.nextLine();
         User user = new User(firstName,lastName,username,password);
-        if(userRepository.importUser(user) != 0 )
+        if(userService.importUser(user) != 0 )
             System.out.println("Sign up is successfully and now you can Sign In!");
         else
             System.out.println("Sing up is ERROR!,please try again");
@@ -122,11 +128,11 @@ public class Manager {
 
     //::::>
     public int selectMenu(String username,String password) throws SQLException {
-        if(adminRepository.findAdmin(username,password) != null )
+        if(adminService.findAdmin(username,password) != null )
             return 1;
-        else if(cinemaRepository.findCinema(username,password) != null)
+        else if(cinemaService.findCinema(username,password) != null)
             return 2;
-        else if(userRepository.findUser(username,password) != null)
+        else if(userService.findUser(username,password) != null)
             return 3;
         else
             return 0;
@@ -135,11 +141,11 @@ public class Manager {
     //::::>
     public void confirmCinema() throws SQLException {
         System.out.println("list of unConfirm cinema are:");
-        cinemaRepository.showUnconfirmCinema();
+        cinemaService.showUnconfirmCinema();
         System.out.println("That's All!");
         System.out.print("Please enter name of cinema you want to confirm:");
         input1 = input.nextLine();
-        if(cinemaRepository.confirmCinema(input1) == 0 )
+        if(cinemaService.confirmCinema(input1) == 0 )
             System.out.println("Sorry,something is wrong and your Entity.Cinema enter is not confirmed");
         else
             System.out.println(input1 + " is successful is confirmed!");
@@ -148,7 +154,7 @@ public class Manager {
 
     //::::>
     public void addTicket(String username,String password) throws SQLException {
-            cinemaName = cinemaRepository.findCinema(username,password);
+            cinemaName = cinemaService.findCinema(username,password);
         System.out.println("please enter Information of Entity.Ticket for add!");
         System.out.print("Enter film name: ");
         filmName = input.nextLine();
@@ -164,7 +170,7 @@ public class Manager {
         price = input.nextInt();
         input.nextLine();
         Ticket ticket = new Ticket(cinemaName,filmName,timeD,timeC,numberTickets,price);
-        if(ticketRepository.importTicket(ticket) != 0 )
+        if(ticketService.importTicket(ticket) != 0 )
             System.out.println("Enter Entity.Ticket to Table successful!");
         else
             System.out.println("Unfortunately something is wrong,Please try again!");
@@ -172,22 +178,22 @@ public class Manager {
 
     //::::>
     public void delTicket(String username,String password) throws SQLException {
-            cinemaName = cinemaRepository.findCinema(username,password);
+            cinemaName = cinemaService.findCinema(username,password);
         Date nowDate = Date.valueOf(java.time.LocalDate.now());
         Time nowTime = Time.valueOf(java.time.LocalTime.now());
         System.out.println("**Now Date is: " + nowDate + " and Now Time is: " + nowTime + " **");
-        ticketRepository.showCinemaTickets(cinemaName);
+        ticketService.showCinemaTickets(cinemaName);
         System.out.print("Enter Id Entity.Ticket for cancel:");
         Integer idDel = input.nextInt();
         input.nextLine();
-        Date dateTicket = (Date) ticketRepository.returnDateTime(idDel);
+        Date dateTicket = (Date) ticketService.returnDateTime(idDel);
         if(dateTicket == null){
             System.out.println("You Enter a wrong id!");
             return;
         }
         if(dateTicket.after(nowDate)){
-            basketRepository.cancelTicket(idDel);
-            ticketRepository.delTicket(idDel);
+            basketService.cancelTicket(idDel);
+            ticketService.delTicket(idDel);
             System.out.println("Entity.Ticket you enter successful cancel!");
         }
         else if(dateTicket.equals(nowDate)){
@@ -197,8 +203,8 @@ public class Manager {
                 return;
             }
             if(timeTicket.after(nowTime)){
-                basketRepository.cancelTicket(idDel);
-                ticketRepository.delTicket(idDel);
+                basketService.cancelTicket(idDel);
+                ticketService.delTicket(idDel);
                 System.out.println("Entity.Ticket you enter successful cancel!");
             }
             else
@@ -211,7 +217,7 @@ public class Manager {
 
     //::::>
     public void showAllTicket() throws SQLException {
-        ticketRepository.showAllTicket();
+        ticketService.showAllTicket();
     }
 
     //::::>
@@ -221,7 +227,7 @@ public class Manager {
         System.out.print("Please enter film date(yyyy-dd-mm):");
         timeDate = input.nextLine();
         Date timeD = Date.valueOf(timeDate);
-        ticketRepository.searchWithName(input1,timeD);
+        ticketService.searchWithName(input1,timeD);
     }
 
     //::::>
@@ -230,7 +236,7 @@ public class Manager {
         System.out.println("Please enter Information of ticket you want to reserve");
         System.out.println("Enter idTicket:");
         int id = input.nextInt();
-        String[] ticketInformation = ticketRepository.getTicketInformation(id);
+        String[] ticketInformation = ticketService.getTicketInformation(id);
         if (ticketInformation == null){
             System.out.println("You enter a wrong id Entity.Ticket!");
             return;
@@ -242,15 +248,15 @@ public class Manager {
             System.out.println("you enter a number bigger than numberOfTicket we have");
             return;
         }
-        if(ticketRepository.updateNumberOfTicket(id,Integer.parseInt(ticketInformation[1]) - numberTickets) == 0 ){
+        if(ticketService.updateNumberOfTicket(id,Integer.parseInt(ticketInformation[1]) - numberTickets) == 0 ){
             System.out.println("Something Wrong");
             return;
         }
         priceAll = calcPriceAll(numberTickets,Integer.parseInt(ticketInformation[2]));
-        int allBuy = ticketRepository.allBuyTicket(id) + numberTickets;
-        ticketRepository.updateNumberTicketBuy(id,allBuy);
+        int allBuy = ticketService.allBuyTicket(id) + numberTickets;
+        ticketService.updateNumberTicketBuy(id,allBuy);
         Basket basket = new Basket(username,id,filmName,numberTickets,priceAll);
-        if(basketRepository.importTicket(basket) != 0)
+        if(basketService.importTicket(basket) != 0)
             System.out.println("Entity.Ticket you Enter successful add to you Entity.Basket!");
         else
             System.out.println("Something Wrong!");
@@ -258,7 +264,7 @@ public class Manager {
 
     //::::>
     public void viewMyBasket(String username) throws SQLException {
-        basketRepository.viewMyBasket(username);
+        basketService.viewMyBasket(username);
     }
 
     //::::>
@@ -296,13 +302,13 @@ public class Manager {
 
     //::::>
     public void listHighPurchase(String username,String password) throws SQLException {
-        cinemaName = cinemaRepository.findCinema(username,password);
-        ticketRepository.showListHighPurchase(cinemaName);
+        cinemaName = cinemaService.findCinema(username,password);
+        ticketService.showListHighPurchase(cinemaName);
     }
 
     //::::>
     public int isConfirm(String username,String password) throws SQLException {
-        cinemaName = cinemaRepository.findCinema(username,password);
+        cinemaName = cinemaService.findCinema(username,password);
         if(cinemaRepository.isConfirm(cinemaName) == 0 )
             return 0;
 

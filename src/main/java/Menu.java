@@ -1,3 +1,5 @@
+import Manager.Manager;
+
 import java.sql.SQLException;
 import java.util.*;
 
@@ -38,9 +40,9 @@ public class Menu {
     //:::::>
     public void RegisterMenu() throws SQLException {
         System.out.println("Who are you?");
-        System.out.println("1-Admin.");
-        System.out.println("2-Cinema.");
-        System.out.println("3-User.");
+        System.out.println("1-Entity.Admin.");
+        System.out.println("2-Entity.Cinema.");
+        System.out.println("3-Entity.User.");
         System.out.print("Please select a number:");
         command = input.nextInt();
         input.nextLine();
@@ -83,7 +85,7 @@ public class Menu {
                 {
 
                     System.out.println("**********WELCOME Admin**********");
-                    System.out.println("1-Confirm Cinema Manager Account.");
+                    System.out.println("1-Confirm Entity.Cinema Manager.Manager Account.");
                     System.out.println("2-Exit.");
                     System.out.print("Please select a number:");
                     command = input.nextInt();
@@ -108,15 +110,15 @@ public class Menu {
 
             case 2:
                 if(manager.isConfirm(input1,input2) == 0 ) {
-                    System.out.println("Unfortunately Admin not confirm you,please call to Admin!");
+                    System.out.println("Unfortunately Entity.Admin not confirm you,please call to Entity.Admin!");
                     break;
                 }
 
                 isFalse = true;
                 while(isFalse) {
                     System.out.println("**********WELCOME Cinema Manager**********");
-                    System.out.println("1-add Ticket.");
-                    System.out.println("2-cancel Ticket.");
+                    System.out.println("1-add Entity.Ticket.");
+                    System.out.println("2-cancel Entity.Ticket.");
                     System.out.println("3-*Add OFF code*");
                     System.out.println("4-*view high purchase film*");
                     System.out.println("5-Exit.");
@@ -156,10 +158,10 @@ public class Menu {
                 while(isFalse)
                 {
                     System.out.println("**********WELCOME User**********");
-                    System.out.println("1-Reserve Ticket.");
+                    System.out.println("1-Reserve Entity.Ticket.");
                     System.out.println("2-View all Tickets");
                     System.out.println("3-Search with name and date.");
-                    System.out.println("4-*view my Basket*");
+                    System.out.println("4-*view my Entity.Basket*");
                     System.out.println("5-Exit.");
                     System.out.print("Please select a number:");
                     command = input.nextInt();

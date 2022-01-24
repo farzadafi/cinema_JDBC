@@ -33,7 +33,12 @@ public class TicketRepository {
         preparedStatement.setInt(5,ticket.getNumberTickets());
         preparedStatement.setInt(6,ticket.getPrice());
         preparedStatement.setInt(7,0);
-        return preparedStatement.executeUpdate();
+        try {
+            return preparedStatement.executeUpdate();
+        }catch (SQLException exception){
+            System.out.println(exception.getMessage());
+        }
+        return 0;
     }
 
     //::::>
@@ -41,7 +46,12 @@ public class TicketRepository {
         String showCinema = "SELECT * FROM TicketTable WHERE cinemaName = ? ";
         PreparedStatement preparedStatement = connection.prepareStatement(showCinema);
         preparedStatement.setString(1,cinemaName);
-        ResultSet resultSet = preparedStatement.executeQuery();
+        ResultSet resultSet = null;
+        try {
+            resultSet = preparedStatement.executeQuery();
+        }catch (SQLException exception){
+            System.out.println(exception.getMessage());
+        }
         while(resultSet.next())
             System.out.println("id=" + resultSet.getString("id")+ "    |cinemaName=" + resultSet.getString("cinemaName")
                     + "    |filmName =" + resultSet.getString("filmName")+"    |date= "+ resultSet.getString("datetime") +
@@ -53,7 +63,11 @@ public class TicketRepository {
         String del = "DELETE FROM TicketTable WHERE id = ? ";
         PreparedStatement preparedStatement = connection.prepareStatement(del);
         preparedStatement.setInt(1,id);
-        preparedStatement.executeUpdate();
+        try {
+            preparedStatement.executeUpdate();
+        }catch (SQLException exception){
+            System.out.println(exception.getMessage());
+        }
     }
 
     //::::>
@@ -61,7 +75,12 @@ public class TicketRepository {
         String dateTime = "SELECT datetime FROM TicketTable WHERE id = ? ";
         PreparedStatement preparedStatement = connection.prepareStatement(dateTime);
         preparedStatement.setInt(1,id);
-        ResultSet resultSet = preparedStatement.executeQuery();
+        ResultSet resultSet = null;
+        try {
+            resultSet = preparedStatement.executeQuery();
+        }catch (SQLException exception){
+            System.out.println(exception.getMessage());
+        }
         if(resultSet.next()) {
             return resultSet.getDate("datetime");
         }
@@ -73,18 +92,30 @@ public class TicketRepository {
         String clock = "SELECT clock FROM TicketTable WHERE id = ? ";
         PreparedStatement preparedStatement = connection.prepareStatement(clock);
         preparedStatement.setInt(1,id);
-        ResultSet resultSet = preparedStatement.executeQuery();
+        ResultSet resultSet = null;
+        try {
+            resultSet = preparedStatement.executeQuery();
+        }catch (SQLException exception){
+            System.out.println(exception.getMessage());
+        }
         if(resultSet.next()) {
             return resultSet.getTime("clock");
         }
         else
             return null;
     }
+    
+    
     //::::>
     public void showAllTicket() throws SQLException {
         String show = "SELECT * FROM TicketTable ";
         PreparedStatement preparedStatement = connection.prepareStatement(show);
-        ResultSet resultSet = preparedStatement.executeQuery();
+        ResultSet resultSet = null;
+        try {
+            resultSet = preparedStatement.executeQuery();
+        }catch (SQLException exception){
+            System.out.println(exception.getMessage());
+        }
         while(resultSet.next())
             System.out.println("id=" + resultSet.getString("id")+ "    |cinemaName=" + resultSet.getString("cinemaName")
                     + "    |filmName =" + resultSet.getString("filmName")+"    |Date= "+ resultSet.getString("datetime") + "    |clock=" + resultSet.getString("clock")
@@ -97,7 +128,12 @@ public class TicketRepository {
         PreparedStatement preparedStatement = connection.prepareStatement(searchName);
         preparedStatement.setString(1,filmName);
         preparedStatement.setDate(2, (java.sql.Date) timeDate);
-        ResultSet resultSet = preparedStatement.executeQuery();
+        ResultSet resultSet = null;
+        try {
+            resultSet = preparedStatement.executeQuery();
+        }catch (SQLException exception){
+            exception.getMessage();
+        }
             while(resultSet.next())
                 System.out.println("id=" + resultSet.getString("id")+ "    |cinemaName=" + resultSet.getString("cinemaName")
                         + "    |filmName =" + resultSet.getString("filmName")+"    |datetime= "+ resultSet.getString("datetime")
@@ -112,7 +148,12 @@ public class TicketRepository {
         String information = "SELECT * FROM TicketTable WHERE id = ? ";
         PreparedStatement preparedStatement = connection.prepareStatement(information);
         preparedStatement.setInt(1,id);
-        ResultSet resultSet = preparedStatement.executeQuery();
+        ResultSet resultSet = null;
+        try {
+            resultSet = preparedStatement.executeQuery();
+        }catch (SQLException exception){
+            System.out.println(exception.getMessage());
+        }
         if(resultSet.next()){
             resultArray[0] = resultSet.getString("filmName");
             resultArray[1] = String.valueOf(resultSet.getInt("numberTicket"));
@@ -129,7 +170,12 @@ public class TicketRepository {
         PreparedStatement preparedStatement = connection.prepareStatement(updateNumberTicket);
         preparedStatement.setInt(1,number);
         preparedStatement.setInt(2,id);
-        return preparedStatement.executeUpdate();
+        try {
+            return preparedStatement.executeUpdate();
+        }catch (SQLException exception){
+            System.out.println(exception.getMessage());
+        }
+        return 0;
     }
 
     //::::>
@@ -137,7 +183,12 @@ public class TicketRepository {
         String number = " SELECT * FROM TicketTable WHERE id = ? " ;
         PreparedStatement preparedStatement = connection.prepareStatement(number);
         preparedStatement.setInt(1,id);
-        ResultSet resultSet = preparedStatement.executeQuery();
+        ResultSet resultSet = null;
+        try {
+            resultSet = preparedStatement.executeQuery();
+        }catch (SQLException exception){
+            System.out.println(exception.getMessage());
+        }
         resultSet.next();
         return resultSet.getInt("numberBuy");
     }
@@ -148,7 +199,11 @@ public class TicketRepository {
         PreparedStatement preparedStatement = connection.prepareStatement(updateNumber);
         preparedStatement.setInt(1,number);
         preparedStatement.setInt(2,id);
-        preparedStatement.executeUpdate();
+        try {
+            preparedStatement.executeUpdate();
+        }catch (SQLException exception){
+            System.out.println(exception.getMessage());
+        }
     }
 
     //::::>
@@ -156,7 +211,12 @@ public class TicketRepository {
         String show = "SELECT * FROM ticketTable WHERE cinemaName = ? ORDER BY numberBuy DESC" ;
         PreparedStatement preparedStatement = connection.prepareStatement(show);
         preparedStatement.setString(1,cinemaName);
-        ResultSet resultSet = preparedStatement.executeQuery();
+        ResultSet resultSet = null;
+        try {
+            resultSet = preparedStatement.executeQuery();
+        }catch (SQLException exception){
+            System.out.println(exception.getMessage());
+        }
         while(resultSet.next())
             System.out.println("id=" + resultSet.getString("id")+ "    |cinemaName=" + resultSet.getString("cinemaName")
                     + "    |filmName =" + resultSet.getString("filmName")+"    |Date= "+ resultSet.getString("datetime") + "    |clock=" + resultSet.getString("clock")

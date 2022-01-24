@@ -8,12 +8,11 @@ import java.sql.Date;
 import java.util.*;
 
 public class Manager {
-    Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres" , "postgres" , "afshar");
-    UserRepository userRepository = new UserRepository(connection);
-    AdminRepository adminRepository = new AdminRepository(connection);
-    CinemaRepository cinemaRepository = new CinemaRepository(connection);
-    TicketRepository ticketRepository = new TicketRepository(connection);
-    BasketRepository basketRepository = new BasketRepository(connection);
+    UserRepository userRepository = new UserRepository();
+    AdminRepository adminRepository = new AdminRepository();
+    CinemaRepository cinemaRepository = new CinemaRepository();
+    TicketRepository ticketRepository = new TicketRepository();
+    BasketRepository basketRepository = new BasketRepository();
     Scanner input = new Scanner(System.in);
     String input1,firstName,lastName,username,password,cinemaName,cinemaNumber,filmName,timeDate,clock;
     int numberTickets,price,priceAll;
@@ -23,7 +22,7 @@ public class Manager {
     static Integer emptyHomeIndex = 0;
 
     //::::>
-    public Manager() throws SQLException {
+    public Manager() throws SQLException, ClassNotFoundException {
     }
 
     //::::>

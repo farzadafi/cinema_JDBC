@@ -1,3 +1,8 @@
+package Repository;
+
+import Entity.Person;
+import Entity.Admin;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

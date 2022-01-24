@@ -1,3 +1,7 @@
+package Repository;
+
+import Entity.Cinema;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,7 +51,7 @@ public class CinemaRepository {
         PreparedStatement preparedStatement = connection.prepareStatement(findQuery);
         ResultSet resultSet = preparedStatement.executeQuery();
         while(resultSet.next()){
-            System.out.println("Cinema Name[" + resultSet.getString("cinemaName") + "] and Cinema Number[" + resultSet.getString("cinemaNumber") + "]");
+            System.out.println("Entity.Cinema Name[" + resultSet.getString("cinemaName") + "] and Entity.Cinema Number[" + resultSet.getString("cinemaNumber") + "]");
         }
     }
 

@@ -1,3 +1,7 @@
+package Repository;
+
+import Entity.Ticket;
+
 import java.sql.*;
 import java.util.Date;
 

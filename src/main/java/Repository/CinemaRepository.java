@@ -13,8 +13,12 @@ public class CinemaRepository {
     //::::>
     public CinemaRepository() throws SQLException, ClassNotFoundException {
         String createTable = "CREATE TABLE IF NOT EXISTS Cinema (cinemaName varchar(50)PRIMARY KEY,cinemaNumber varchar(50),username varchar(50),password varchar(50),confirm int )";
-        PreparedStatement preparedStatement = connection.prepareStatement(createTable);
-        preparedStatement.execute();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(createTable);
+            preparedStatement.execute();
+        }catch (SQLException sql){
+            System.out.println(sql.getMessage());
+        }
     }
 
     //::::>
@@ -26,7 +30,12 @@ public class CinemaRepository {
         preparedStatement.setString(3,cinema.getUsername());
         preparedStatement.setString(4,cinema.getPassword());
         preparedStatement.setInt(5,0);
-        return preparedStatement.executeUpdate();
+        try {
+            return preparedStatement.executeUpdate();
+        }catch (SQLException sql){
+            System.out.println(sql.getMessage());
+        }
+        return 0;
     }
 
     //::::>
@@ -35,7 +44,12 @@ public class CinemaRepository {
         PreparedStatement preparedStatement = connection.prepareStatement(findQuery);
         preparedStatement.setString(1,username);
         preparedStatement.setString(2,password);
-        ResultSet resultSet = preparedStatement.executeQuery();
+        ResultSet resultSet = null;
+        try {
+            resultSet = preparedStatement.executeQuery();
+        }catch (SQLException sql){
+            System.out.println(sql.getMessage());
+        }
         if(resultSet.next())
             return resultSet.getString("cinemaName");
         else
@@ -46,7 +60,12 @@ public class CinemaRepository {
     public void showUnconfirmCinema() throws SQLException {
         String findQuery = "SELECT * FROM Cinema WHERE confirm = 0 ";
         PreparedStatement preparedStatement = connection.prepareStatement(findQuery);
-        ResultSet resultSet = preparedStatement.executeQuery();
+        ResultSet resultSet = null;
+        try {
+            resultSet = preparedStatement.executeQuery();
+        }catch (SQLException sql){
+            System.out.println(sql.getMessage());
+        }
         while(resultSet.next()){
             System.out.println("Cinema Name[" + resultSet.getString("cinemaName") + "] and Cinema Number[" + resultSet.getString("cinemaNumber") + "]");
         }
@@ -69,7 +88,12 @@ public class CinemaRepository {
         String has = "SELECT * FROM Cinema WHERE Cinemaname = ? ";
         PreparedStatement preparedStatement = connection.prepareStatement(has);
         preparedStatement.setString(1,cinemaName);
-        ResultSet resultSet = preparedStatement.executeQuery();
+        ResultSet resultSet = null;
+        try {
+            resultSet = preparedStatement.executeQuery();
+        }catch (SQLException sql){
+            System.out.println(sql.getMessage());
+        }
         if(resultSet.next())
             return 1;
         else
@@ -81,7 +105,12 @@ public class CinemaRepository {
         String isConfirmCinema = "SELECT confirm FROM Cinema WHERE Cinemaname = ? ";
         PreparedStatement preparedStatement = connection.prepareStatement(isConfirmCinema);
         preparedStatement.setString(1,CinemaName);
-        ResultSet resultSet = preparedStatement.executeQuery();
+        ResultSet resultSet = null;
+        try {
+            resultSet = preparedStatement.executeQuery();
+        }catch (SQLException sql){
+            System.out.println(sql.getMessage());
+        }
         resultSet.next();
         return resultSet.getInt("confirm");
     }

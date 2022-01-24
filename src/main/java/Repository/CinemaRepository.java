@@ -8,13 +8,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CinemaRepository {
-    private Connection connection;
-
-    public CinemaRepository(){}
+    private Connection connection = Singleton.getInstance().getConnection();
 
     //::::>
-    public CinemaRepository(Connection connection) throws SQLException {
-        this.connection = connection;
+    public CinemaRepository() throws SQLException, ClassNotFoundException {
         String createTable = "CREATE TABLE IF NOT EXISTS Cinema (cinemaName varchar(50)PRIMARY KEY,cinemaNumber varchar(50),username varchar(50),password varchar(50),confirm int )";
         PreparedStatement preparedStatement = connection.prepareStatement(createTable);
         preparedStatement.execute();

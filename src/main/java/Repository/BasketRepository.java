@@ -13,8 +13,12 @@ public class BasketRepository {
     public BasketRepository() throws SQLException, ClassNotFoundException {
         String createTable = " CREATE TABLE IF NOT EXISTS Basket(id serial,username varchar(50) REFERENCES UserTable(username)," +
                        "idTicket Integer REFERENCES TicketTable(id),filmName varchar(50),numberTicket Integer,priceAll Integer) ";
-        PreparedStatement preparedStatement = connection.prepareStatement(createTable);
-        preparedStatement.execute();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(createTable);
+            preparedStatement.execute();
+        }catch (SQLException sql){
+            System.out.println(sql.getMessage());
+        }
     }
 
     //::::>
@@ -26,7 +30,12 @@ public class BasketRepository {
         preparedStatement.setString(3,basket.getFilmName());
         preparedStatement.setInt(4,basket.getNumber());
         preparedStatement.setInt(5,basket.getPriceAll());
-        return preparedStatement.executeUpdate();
+        try {
+            return preparedStatement.executeUpdate();
+        }catch (SQLException sql){
+            System.out.println(sql.getMessage());
+        }
+        return 0;
     }
 
     //::::>
@@ -34,7 +43,11 @@ public class BasketRepository {
         String cancel = "DELETE FROM Basket WHERE idTicket = ? ";
         PreparedStatement preparedStatement = connection.prepareStatement(cancel);
         preparedStatement.setInt(1,id);
-        preparedStatement.executeUpdate();
+        try {
+            preparedStatement.executeUpdate();
+        }catch (SQLException sql){
+            System.out.println(sql.getMessage());
+        }
     }
 
     //::::>
@@ -42,7 +55,12 @@ public class BasketRepository {
         String finduser = " SELECT * FROM Basket WHERE username = ? ";
         PreparedStatement preparedStatement = connection.prepareStatement(finduser);
         preparedStatement.setString(1,username);
-        ResultSet resultSet = preparedStatement.executeQuery();
+        ResultSet resultSet = null;
+        try {
+           resultSet = preparedStatement.executeQuery();
+        }catch (SQLException sql){
+            System.out.println(sql.getMessage());
+        }
             while (resultSet.next()){
                 System.out.println("id=" + resultSet.getInt("id") + "  |filmName=" + resultSet.getString("filmName") +
                                    "   |numberTicket=" + resultSet.getInt("numberTicket") + "   |priceAll=" + resultSet.getInt("priceall"));

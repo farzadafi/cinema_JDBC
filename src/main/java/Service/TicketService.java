@@ -23,4 +23,8 @@ public class TicketService {
     public Date returnDateTime(int idDel) throws SQLException {
          return ticketRepository.returnDateTime(idDel);
     }
+
+    public void delTicket(int idDel) throws SQLException {
+        ticketRepository.delTicket(idDel);
+    }
 }

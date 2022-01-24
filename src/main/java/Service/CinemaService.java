@@ -30,4 +30,8 @@ public class CinemaService {
     public int confirmCinema(String input) throws SQLException {
         return cinemaRepository.confirmCinema(input);
     }
+
+    public int isConfirm(String name) throws SQLException {
+        return cinemaRepository.isConfirm(name);
+    }
 }

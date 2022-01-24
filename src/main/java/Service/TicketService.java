@@ -4,6 +4,7 @@ import Entity.Ticket;
 import Repository.TicketRepository;
 
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.Date;
 
 public class TicketService {
@@ -54,5 +55,9 @@ public class TicketService {
 
     public void showListHighPurchase(String name) throws SQLException {
         ticketRepository.showListHighPurchase(name);
+    }
+
+    public Time returnClock(int id) throws SQLException {
+        return ticketRepository.returnClock(id);
     }
 }

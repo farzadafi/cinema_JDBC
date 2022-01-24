@@ -14,4 +14,10 @@ public class AdminService {
     public int importAdmin(Admin admin) throws SQLException {
         return adminRepository.importAdmin(admin);
     }
+
+    public String findAdmin(String username,String password) throws SQLException {
+        return adminRepository.findAdmin(username,password);
+    }
+
+
 }

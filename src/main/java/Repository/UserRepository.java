@@ -14,8 +14,14 @@ public class UserRepository {
     //::::>
    public UserRepository() throws SQLException, ClassNotFoundException {
        String create = "CREATE TABLE IF NOT EXISTS UserTable (firstName varchar(50),lastName varchar(50),username varchar(50)PRIMARY KEY,password varchar(50) ) ";
-       PreparedStatement far = connection.prepareStatement(create);
-       far.execute();
+       try {
+           PreparedStatement far = connection.prepareStatement(create);
+           far.execute();
+       }catch (SQLException sql){
+           System.out.println(sql.getMessage());
+       }catch (NullPointerException exception){
+           System.out.println(exception.getMessage());
+       }
    }
 
     //::::>

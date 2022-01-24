@@ -8,10 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class BasketRepository {
-    private Connection connection;
+    private Connection connection = Singleton.getInstance().getConnection();
 
-    public BasketRepository(Connection connection) throws SQLException {
-        this.connection = connection;
+    public BasketRepository() throws SQLException, ClassNotFoundException {
         String createTable = " CREATE TABLE IF NOT EXISTS Basket(id serial,username varchar(50) REFERENCES UserTable(username)," +
                        "idTicket Integer REFERENCES TicketTable(id),filmName varchar(50),numberTicket Integer,priceAll Integer) ";
         PreparedStatement preparedStatement = connection.prepareStatement(createTable);

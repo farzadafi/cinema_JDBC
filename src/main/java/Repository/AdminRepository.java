@@ -14,8 +14,12 @@ public class AdminRepository {
     //::::>
     public AdminRepository() throws SQLException, ClassNotFoundException {
         String createTable = "CREATE TABLE IF NOT EXISTS Admin(firstName varchar(50),lastName varchar(50),username varchar(50)not null, password varchar(50) )";
-        PreparedStatement preparedStatement = connection.prepareStatement(createTable);
-        preparedStatement.execute();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(createTable);
+            preparedStatement.execute();
+        }catch (SQLException sql){
+            System.out.println(sql.getMessage());
+        }
     }
 
     //::::>
@@ -26,7 +30,12 @@ public class AdminRepository {
         preparedStatement.setString(2,admin.lastName);
         preparedStatement.setString(3,admin.username);
         preparedStatement.setString(4,admin.password);
-        return preparedStatement.executeUpdate();
+        try {
+            return preparedStatement.executeUpdate();
+        }catch (SQLException sql){
+            System.out.println(sql.getMessage());
+        }
+        return 0;
     }
 
     //::::>
@@ -35,7 +44,12 @@ public class AdminRepository {
         PreparedStatement preparedStatement = connection.prepareStatement(findQuery);
         preparedStatement.setString(1,username);
         preparedStatement.setString(2,password);
-        ResultSet resultSet = preparedStatement.executeQuery();
+        ResultSet resultSet = null;
+        try {
+            resultSet = preparedStatement.executeQuery();
+        }catch (SQLException sql){
+            System.out.println(sql.getMessage());
+        }
         if(resultSet.next())
             return resultSet.getString("username");
         else

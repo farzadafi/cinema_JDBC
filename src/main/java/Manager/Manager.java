@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.util.*;
 
 public class Manager {
+    private InvalidUsername invalidUsername = new InvalidUsername();
     private InvalidName invalidName = new InvalidName();
     private AdminService adminService = new AdminService();
     private UserService userService = new UserService();
@@ -45,8 +46,14 @@ public class Manager {
             return;
         }
         while(true){
-            System.out.print("Enter your user name:");
-            username = input.nextLine();
+            System.out.print("Enter your user name(start with alpha):");
+            try {
+                username = input.nextLine();
+                invalidUsername.checkUsername(username);
+            }catch (InvalidUsername except){
+                System.out.println(except.getMessage());
+                return;
+            }
             int result = findInArray(username);
             if(result != -1 )
                 System.out.println("this user name is defined before,select another username");
@@ -86,8 +93,14 @@ public class Manager {
         System.out.print("Enter your Cinema number:");
         cinemaNumber = input.nextLine();
         while(true) {
-            System.out.print("Enter your user name:");
-            username = input.nextLine();
+            System.out.print("Enter your user name(start with alpha):");
+            try {
+                username = input.nextLine();
+                invalidUsername.checkUsername(username);
+            }catch (InvalidUsername except){
+                System.out.println(except.getMessage());
+                return;
+            }
             if( findInArray(username) != -1 )
                 System.out.println("this user name is defined before,select another username");
             else{
@@ -124,8 +137,14 @@ public class Manager {
             return;
         }
         while(true){
-            System.out.print("Enter your user name:");
-            username = input.nextLine();
+            System.out.print("Enter your user name(start with alpha):");
+            try {
+                username = input.nextLine();
+                invalidUsername.checkUsername(username);
+            }catch (InvalidUsername except){
+                System.out.println(except.getMessage());
+                return;
+            }
             if(findInArray(username) != -1 )
                 System.out.println("this user name is defined before,select another username");
             else{

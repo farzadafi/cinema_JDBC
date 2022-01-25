@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.util.*;
 
 public class Manager {
+    private InvalidName invalidName = new InvalidName();
     private AdminService adminService = new AdminService();
     private UserService userService = new UserService();
     private CinemaService cinemaService = new CinemaService();
@@ -30,6 +31,7 @@ public class Manager {
         System.out.print("Please enter your first name(just alpha):");
         try {
             firstName = input.nextLine();
+            invalidName.checkName(firstName);
         }catch (InvalidName except){
             System.out.println(except.getMessage());
             return;
@@ -37,6 +39,7 @@ public class Manager {
         System.out.print("Enter your last name(just alpha):");
         try {
             lastName = input.nextLine();
+            invalidName.checkName(lastName);
         }catch (InvalidName except){
             System.out.println(except.getMessage());
             return;
@@ -70,6 +73,7 @@ public class Manager {
             System.out.print("Please enter your Cinema name(just alpha):");
             try {
                 cinemaName = input.nextLine();
+                invalidName.checkName(cinemaName);
             }catch (InvalidName except){
                 System.out.println(except.getMessage());
                 return;
@@ -106,6 +110,7 @@ public class Manager {
         System.out.print("Please enter your first name(just alpha):");
         try {
             firstName = input.nextLine();
+            invalidName.checkName(firstName);
         }catch (InvalidName except){
             System.out.println(except.getMessage());
             return;
@@ -113,6 +118,7 @@ public class Manager {
         System.out.print("Enter your last name(just alpha):");
         try {
             lastName = input.nextLine();
+            invalidName.checkName(lastName);
         }catch (InvalidName except){
             System.out.println(except.getMessage());
             return;

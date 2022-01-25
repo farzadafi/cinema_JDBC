@@ -31,15 +31,40 @@ public class TicketManager {
         filmName = input.nextLine();
         System.out.print("Enter date(yyyy-dd-mm):");
         timeDate = input.nextLine();
-        Date timeD = Date.valueOf(timeDate);
+        Date timeD;
+        try {
+            timeD = Date.valueOf(timeDate);
+        }catch (Exception exception){
+            System.out.println("open your eyes and see the format!");
+            return;
+        }
         System.out.print("Enter time(HH:MM:SS):");
         clock = input.nextLine();
-        Time timeC = Time.valueOf(clock);
+        Time timeC;
+        try {
+            timeC = Time.valueOf(clock);
+        }catch (Exception exception){
+            System.out.println("open your eyes and see the format!");
+            return;
+        }
         System.out.print("how many Entity.Ticket you has(number): ");
-        numberTickets = input.nextInt();
+        try {
+            numberTickets = input.nextInt();
+            input.nextLine();
+        }catch (Exception exception){
+            System.out.println("just enter number! it is hard?");
+            input.nextLine();
+            return;
+        }
         System.out.print("Enter price for " + filmName + " :");
-        price = input.nextInt();
-        input.nextLine();
+        try {
+            price = input.nextInt();
+            input.nextLine();
+        }catch (Exception exception){
+            System.out.println("just enter number! it is hard?");
+            input.nextLine();
+            return;
+        }
         Ticket ticket = new Ticket(cinemaName,filmName,timeD,timeC,numberTickets,price);
         if(ticketService.importTicket(ticket) != 0 )
             System.out.println("Enter Ticket to Table successful!");
@@ -54,8 +79,14 @@ public class TicketManager {
         System.out.println("**Now Date is: " + nowDate + " and Now Time is: " + nowTime + " **");
         ticketService.showCinemaTickets(cinemaName);
         System.out.print("Enter Id Ticket for cancel:");
-        Integer idDel = input.nextInt();
-        input.nextLine();
+        Integer idDel = 0;
+        try {
+            idDel = input.nextInt();
+            input.nextLine();
+        }catch (Exception exception){
+            System.out.println("invalid input!");
+            input.nextLine();
+        }
         Date dateTicket = (Date) ticketService.returnDateTime(idDel);
         if(dateTicket == null){
             System.out.println("You Enter a wrong id!");
@@ -93,7 +124,13 @@ public class TicketManager {
         showAllTicket();
         System.out.println("Please enter Information of ticket you want to reserve");
         System.out.println("Enter idTicket:");
-        int id = input.nextInt();
+        int id = 0;
+        try {
+            id = input.nextInt();
+            input.nextLine();
+        }catch (Exception exception){
+            System.out.println("Invalid number!");
+        }
         String[] ticketInformation = ticketService.getTicketInformation(id);
         if (ticketInformation == null){
             System.out.println("You enter a wrong id Ticket!");
@@ -101,7 +138,13 @@ public class TicketManager {
         }
         filmName = ticketInformation[0];
         System.out.print("How many ticket you want to buy?:");
-        numberTickets = input.nextInt();
+        try {
+            numberTickets = input.nextInt();
+            input.nextLine();
+        }catch (Exception exception){
+            System.out.println("just enter number!");
+            input.nextLine();
+        }
         if(numberTickets > Integer.parseInt(ticketInformation[1])){
             System.out.println("you enter a number bigger than numberOfTicket we have");
             return;

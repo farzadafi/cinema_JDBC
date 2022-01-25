@@ -27,10 +27,20 @@ public class Manager {
 
     //::::>
     public void registerAdmin() throws SQLException {
-        System.out.print("Please enter your first name:");
-        firstName = input.nextLine();
-        System.out.print("Enter your last name:");
-        lastName = input.nextLine();
+        System.out.print("Please enter your first name(just alpha):");
+        try {
+            firstName = input.nextLine();
+        }catch (InvalidName except){
+            System.out.println(except.getMessage());
+            return;
+        }
+        System.out.print("Enter your last name(just alpha):");
+        try {
+            lastName = input.nextLine();
+        }catch (InvalidName except){
+            System.out.println(except.getMessage());
+            return;
+        }
         while(true){
             System.out.print("Enter your user name:");
             username = input.nextLine();
@@ -57,8 +67,13 @@ public class Manager {
     public void registerCinema() throws SQLException {
         while(true)
         {
-            System.out.print("Please enter your Cinema name:");
-            cinemaName = input.nextLine();
+            System.out.print("Please enter your Cinema name(just alpha):");
+            try {
+                cinemaName = input.nextLine();
+            }catch (InvalidName except){
+                System.out.println(except.getMessage());
+                return;
+            }
             if(cinemaService.hasCinema(cinemaName) == 1)
                 System.out.println("this cinema name is defined before,select another Name");
             else
@@ -88,10 +103,20 @@ public class Manager {
 
     //::::>
     public void registerUser() throws SQLException {
-        System.out.print("Please enter your first name:");
-        firstName = input.nextLine();
-        System.out.print("Enter your last name:");
-        lastName = input.nextLine();
+        System.out.print("Please enter your first name(just alpha):");
+        try {
+            firstName = input.nextLine();
+        }catch (InvalidName except){
+            System.out.println(except.getMessage());
+            return;
+        }
+        System.out.print("Enter your last name(just alpha):");
+        try {
+            lastName = input.nextLine();
+        }catch (InvalidName except){
+            System.out.println(except.getMessage());
+            return;
+        }
         while(true){
             System.out.print("Enter your user name:");
             username = input.nextLine();

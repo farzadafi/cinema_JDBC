@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.util.*;
 
 public class Manager {
+    private InvalidPassword invalidPassword = new InvalidPassword();
     private InvalidUsername invalidUsername = new InvalidUsername();
     private InvalidName invalidName = new InvalidName();
     private AdminService adminService = new AdminService();
@@ -63,8 +64,19 @@ public class Manager {
                 break;
             }
         }
-        System.out.print("Enter your password:");
-        password = input.nextLine();
+        while(true) {
+            System.out.print("Enter your password:");
+            boolean isFalse = true;
+            try {
+                password = input.nextLine();
+                invalidPassword.passwordCheck(password);
+                isFalse = false;
+            } catch (InvalidPassword except) {
+                System.out.println(except.getMessage());
+            }
+            if(!isFalse)
+                break;
+        }
         Admin admin = new Admin(firstName,lastName,username,password);
         int result =  adminService.importAdmin(admin);
         if(result != 0 )
@@ -109,8 +121,19 @@ public class Manager {
                 break;
             }
         }
-        System.out.print("Enter your password:");
-        password = input.nextLine();
+        while(true) {
+            System.out.print("Enter your password:");
+            boolean isFalse = true;
+            try {
+                password = input.nextLine();
+                invalidPassword.passwordCheck(password);
+                isFalse = false;
+            } catch (InvalidPassword except) {
+                System.out.println(except.getMessage());
+            }
+            if(!isFalse)
+                break;
+        }
         Cinema cinema = new Cinema(cinemaName,cinemaNumber,username,password);
         if(cinemaService.importCinema(cinema) != 0 )
             System.out.println("Sign up is successfully and now you can Sign In!");
@@ -153,8 +176,19 @@ public class Manager {
                 break;
             }
         }
-        System.out.print("Enter your password:");
-        password = input.nextLine();
+        while(true) {
+            System.out.print("Enter your password:");
+            boolean isFalse = true;
+            try {
+                password = input.nextLine();
+                invalidPassword.passwordCheck(password);
+                isFalse = false;
+            } catch (InvalidPassword except) {
+                System.out.println(except.getMessage());
+            }
+            if(!isFalse)
+                break;
+        }
         User user = new User(firstName,lastName,username,password);
         if(userService.importUser(user) != 0 )
             System.out.println("Sign up is successfully and now you can Sign In!");

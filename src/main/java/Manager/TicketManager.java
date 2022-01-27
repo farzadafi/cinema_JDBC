@@ -12,7 +12,6 @@ import java.sql.Time;
 import java.util.Scanner;
 
 public class TicketManager {
-    Manager manager = new Manager();
     private Scanner input = new Scanner(System.in);
     private TicketService ticketService = new TicketService();
     private CinemaService cinemaService = new CinemaService();
@@ -182,6 +181,21 @@ public class TicketManager {
 
          */
 
+    }
+
+    public void searchFilm() throws SQLException {
+        String input1;
+        System.out.print("Please enter film name:");
+        input1 = input.nextLine();
+        System.out.print("Please enter film date(yyyy-dd-mm):");
+        timeDate = input.nextLine();
+        Date timeD = Date.valueOf(timeDate);
+        ticketService.searchWithName(input1,timeD);
+    }
+
+    public void listHighPurchase(String username,String password) throws SQLException {
+        cinemaName = cinemaService.findCinema(username,password);
+        ticketService.showListHighPurchase(cinemaName);
     }
 
 

@@ -1,15 +1,18 @@
 import Manager.*;
+import Service.LoginService;
 
 import java.sql.SQLException;
 import java.util.*;
 
 public class Menu {
-    Manager manager = new Manager();
     int command;
     String input1,input2;
     Scanner input = new Scanner(System.in);
     private CinemaManager cinemaManager = new CinemaManager();
     private TicketManager ticketManager = new TicketManager();
+    private AdminManger adminManger = new AdminManger();
+    private UserManager userManager = new UserManager();
+    private LoginService loginService = new LoginService();
 
     public Menu() throws SQLException, ClassNotFoundException {
     }
@@ -64,33 +67,43 @@ public class Menu {
         {
 
             case 1:
-                manager.registerAdmin();
+                adminManger.registerAdmin();
                 break;
 
             case 2:
-                manager.registerCinema();
+                cinemaManager.registerCinema();
                 break;
 
             case 3:
-                manager.registerUser();
+                userManager.registerUser();
                 break;
         }
     }
 
-    //:::::>
+    public int selectMenu(String username,String password) throws SQLException {
+        String result = loginService.find(username,password);
+        if(result.equals("ADMIN"))
+            return 1;
+        else if (result.equals("CINEMA"))
+            return 2;
+        else if (result.equals("USER"))
+            return 3;
+        else
+            return 0;
+    }
+
+
+        //:::::>
     public void enterMenu() throws SQLException {
         System.out.print("Please enter your user name:");
         input1 = input.nextLine();
-        if (manager.findInArray(input1) == -1) {
-            System.out.println("this user name is not found!,please sign up and try again!");
-            return;
-        }
         System.out.print("Please enter your password:");
         input2 = input.nextLine();
-        switch (manager.selectMenu(input1, input2))
+        //switch (manager.selectMenu(input1, input2))
+        switch (selectMenu(input1,input2))
         {
             case 0:
-                System.out.println("it's very strange!");
+                System.out.println("You enter a wrong user name and password!");
                 break;
 
             case 1:
@@ -129,7 +142,7 @@ public class Menu {
                 break;
 
             case 2:
-                if(manager.isConfirm(input1,input2) == 0 ) {
+                if(cinemaManager.isConfirm(input1,input2) == 0 ) {
                     System.out.println("Unfortunately Admin not confirm you,please call to Admin!");
                     break;
                 }
@@ -161,11 +174,11 @@ public class Menu {
                             break;
 
                         case 3:
-                            manager.addOffCode();
+                            cinemaManager.addOffCode();
                             break;
 
                         case 4:
-                            manager.listHighPurchase(input1,input2);
+                            ticketManager.listHighPurchase(input1,input2);
                             break;
 
                         case 5:
@@ -209,11 +222,11 @@ public class Menu {
                             break;
 
                         case 3:
-                            manager.searchFilm();
+                            ticketManager.searchFilm();
                             break;
 
                         case 4:
-                            manager.viewMyBasket(input1);
+                            userManager.viewMyBasket(input1);
                             break;
 
                         case 5:
